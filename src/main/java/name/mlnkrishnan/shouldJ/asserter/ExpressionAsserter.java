@@ -34,14 +34,14 @@ public class ExpressionAsserter<R> {
         throw new ExpectationMismatch(String.format("expected <%s> to be thrown, but got none", expectedThrowable));
     }
 
-    class ThrownExceptionAsserter<T extends Throwable>{
+    class ThrownExceptionAsserter<T extends Throwable> {
         private final ThrowableAsserter<Throwable> throwableThrowableAsserter;
 
         public ThrownExceptionAsserter(Throwable e) {
             throwableThrowableAsserter = new ThrowableAsserter<Throwable>(e);
         }
-        
-        public ThrownExceptionAsserter<T> withMessage(String expectedMessage){
+
+        public ThrownExceptionAsserter<T> withMessage(String expectedMessage) {
             throwableThrowableAsserter.shouldHaveMessage(expectedMessage);
             return this;
         }
