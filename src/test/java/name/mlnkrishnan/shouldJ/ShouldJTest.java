@@ -42,6 +42,21 @@ public class ShouldJTest {
     }
 
     @Test
+    public void shouldReturnThrowableAsserter() {
+        assertEquals(ThrowableAsserter.class, it(new Error()).getClass());
+    }
+
+    @Test
+    public void shouldReturnExpressionAsserter() {
+        assertEquals(ExpressionAsserter.class, it(new E<Integer>() {
+            @Override
+            public Integer perform() {
+                return null;
+            }
+        }).getClass());
+    }
+
+    @Test
     public void shouldReturnNumberAsserter() {
         byte b = 1;
         short s = 1;

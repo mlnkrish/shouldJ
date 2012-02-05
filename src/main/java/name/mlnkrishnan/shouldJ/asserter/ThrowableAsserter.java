@@ -10,10 +10,10 @@ public class ThrowableAsserter<T extends Throwable> extends ObjectAsserter<T>{
         this.actual = actualThrowable;
     }
     
-    public ThrowableAsserter<T> hasMessage(String expectedMessage){
+    public ThrowableAsserter<T> shouldHaveMessage(String expectedMessage){
         String actualMessage = actual.getMessage();
         if(!actualMessage.equals(expectedMessage)){
-            throw new ExpectationMismatch(String.format("expected message on to be <%s>, but was <%s>",expectedMessage,actualMessage));
+            throw new ExpectationMismatch(String.format("expected message to be <%s>, but was <%s>",expectedMessage,actualMessage));
         }
         return this;
     }

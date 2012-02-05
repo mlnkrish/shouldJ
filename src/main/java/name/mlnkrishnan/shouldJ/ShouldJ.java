@@ -30,4 +30,8 @@ public class ShouldJ {
     public static <T extends Throwable> ThrowableAsserter<T> it(T aThrowable) {
         return new ThrowableAsserter<T>(aThrowable);
     }
+
+    public static <I,R> ExpressionAsserter<R> it(E<R> anExpression) {
+        return new ExpressionAsserter<R>(anExpression);
+    }
 }
