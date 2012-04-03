@@ -1,5 +1,6 @@
 package name.mlnkrishnan.shouldJ.asserter;
 
+import name.mlnkrishnan.shouldJ.failure.ActualValueIsNull;
 import name.mlnkrishnan.shouldJ.failure.ExpectationMismatch;
 
 public class ThrowableAsserter<T extends Throwable> extends ObjectAsserter<T>{
@@ -11,6 +12,8 @@ public class ThrowableAsserter<T extends Throwable> extends ObjectAsserter<T>{
     }
     
     public ThrowableAsserter<T> shouldHaveMessage(String expectedMessage){
+        if(actual == null)
+            throw new ActualValueIsNull();
         String actualMessage = actual.getMessage();
         if(!actualMessage.equals(expectedMessage)){
             throw new ExpectationMismatch(String.format("expected message to be <%s>, but was <%s>",expectedMessage,actualMessage));

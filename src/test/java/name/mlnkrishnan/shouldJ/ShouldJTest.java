@@ -42,16 +42,26 @@ public class ShouldJTest {
     }
 
     @Test
+    public void shouldReturnStringAsserter() {
+        assertEquals(StringAsserter.class, it("foo").getClass());
+    }
+
+    @Test
+    public void shouldReturnTypeAsserter() {
+        assertEquals(TypeAsserter.class, it(Integer.class).getClass());
+    }
+
+    @Test
     public void shouldReturnThrowableAsserter() {
         assertEquals(ThrowableAsserter.class, it(new Error()).getClass());
     }
 
     @Test
     public void shouldReturnExpressionAsserter() {
-        assertEquals(ExpressionAsserter.class, it(new E<Integer>() {
+        assertEquals(ExpressionAsserter.class, it(new E() {
             @Override
-            public Integer perform() {
-                return null;
+            public void perform() {
+                //something
             }
         }).getClass());
     }

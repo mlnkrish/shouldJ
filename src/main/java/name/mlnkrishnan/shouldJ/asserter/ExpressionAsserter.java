@@ -1,27 +1,18 @@
 package name.mlnkrishnan.shouldJ.asserter;
 
+import name.mlnkrishnan.shouldJ.failure.ActualValueIsNull;
 import name.mlnkrishnan.shouldJ.failure.ExpectationMismatch;
 
-public class ExpressionAsserter<R> {
-    final private E<R> givenExpression;
+public class ExpressionAsserter {
+    final private E givenExpression;
 
-    public ExpressionAsserter(E<R> givenExpression) {
+    public ExpressionAsserter(E givenExpression) {
         this.givenExpression = givenExpression;
     }
 
-    public boolean shouldReturn(R expectedReturnValue) {
-        R actualReturnValue = givenExpression.perform();
-        if (expectedReturnValue == null || actualReturnValue == null) {
-            if (!(expectedReturnValue == actualReturnValue))
-                throw new ExpectationMismatch(String.format("expected return value to be <%s>, but was <%s>", expectedReturnValue, actualReturnValue));
-            return true;
-        }
-        if (!(expectedReturnValue.equals(actualReturnValue)))
-            throw new ExpectationMismatch(String.format("expected return value to be <%s>, but was <%s>", expectedReturnValue, actualReturnValue));
-        return true;
-    }
-
     public <T extends Throwable> ThrownExceptionAsserter<T> shouldThrow(Class<T> expectedThrowable) {
+        if(givenExpression == null)
+            throw new ActualValueIsNull();
         try {
             givenExpression.perform();
         } catch (Throwable e) {

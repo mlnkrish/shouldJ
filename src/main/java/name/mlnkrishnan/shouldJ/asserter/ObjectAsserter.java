@@ -1,5 +1,6 @@
 package name.mlnkrishnan.shouldJ.asserter;
 
+import name.mlnkrishnan.shouldJ.failure.ActualValueIsNull;
 import name.mlnkrishnan.shouldJ.failure.ExpectationMismatch;
 
 public class ObjectAsserter<T> {
@@ -34,6 +35,8 @@ public class ObjectAsserter<T> {
     }
     
     public ObjectAsserter<T> shouldBeOfType(Class<?> expectedType){
+        if(actual == null)
+            throw new ActualValueIsNull();
         Class<? extends Object> actualType = actual.getClass();
         if(!actualType.equals(expectedType))
             throw new ExpectationMismatch(String.format("expected type <%s>, but was <%s>", expectedType, actualType));

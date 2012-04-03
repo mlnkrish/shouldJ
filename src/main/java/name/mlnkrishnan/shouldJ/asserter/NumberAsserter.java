@@ -1,5 +1,6 @@
 package name.mlnkrishnan.shouldJ.asserter;
 
+import name.mlnkrishnan.shouldJ.failure.ActualValueIsNull;
 import name.mlnkrishnan.shouldJ.failure.ExpectationMismatch;
 
 import java.math.BigDecimal;
@@ -17,6 +18,8 @@ public class NumberAsserter<T extends Number> extends ObjectAsserter<T> {
     }
 
     private BigDecimal getBigDecimalValue(T actualValue) {
+        if(actualValue == null)
+            return null;
         if (actualValue instanceof Byte)
             return BigDecimal.valueOf((Byte) actualValue);
         if (actualValue instanceof Short)
@@ -40,28 +43,36 @@ public class NumberAsserter<T extends Number> extends ObjectAsserter<T> {
         throw new IllegalArgumentException(String.format("cant find a conversion to big-decimal for type <%s>",actualValue.getClass()));
     }
 
-    protected NumberAsserter shouldBeGreaterThan(T expectedNumber) {
+    public NumberAsserter shouldBeGreaterThan(T expectedNumber) {
+        if(actual == null)
+            throw new ActualValueIsNull();
         BigDecimal expectedValue = getBigDecimalValue(expectedNumber);
         if (!(actualNumber.compareTo(expectedValue) == 1))
             throw new ExpectationMismatch(String.format("expected <%s> to be greater than <%s>", actual, expectedNumber));
         return this;
     }
 
-    protected NumberAsserter shouldBeLesserThan(T expectedNumber) {
+    public NumberAsserter shouldBeLesserThan(T expectedNumber) {
+        if(actual == null)
+            throw new ActualValueIsNull();
         BigDecimal expectedValue = getBigDecimalValue(expectedNumber);
         if (!(actualNumber.compareTo(expectedValue) == -1))
             throw new ExpectationMismatch(String.format("expected <%s> to be lesser than <%s>", actual, expectedNumber));
         return this;
     }
 
-    protected NumberAsserter shouldBeGreaterThanOrEqualTo(T expectedNumber) {
+    public NumberAsserter shouldBeGreaterThanOrEqualTo(T expectedNumber) {
+        if(actual == null)
+            throw new ActualValueIsNull();
         BigDecimal expectedValue = getBigDecimalValue(expectedNumber);
         if (actualNumber.compareTo(expectedValue) == -1)
             throw new ExpectationMismatch(String.format("expected <%s> to be greater than or equal to <%s>", actual, expectedNumber));
         return this;
     }
 
-    protected NumberAsserter shouldBeLesserThanOrEqualTo(T expectedNumber) {
+    public NumberAsserter shouldBeLesserThanOrEqualTo(T expectedNumber) {
+        if(actual == null)
+            throw new ActualValueIsNull();
         BigDecimal expectedValue = getBigDecimalValue(expectedNumber);
         if (actualNumber.compareTo(expectedValue) == 1)
             throw new ExpectationMismatch(String.format("expected <%s> to be lesser than or equal to <%s>", actual, expectedNumber));

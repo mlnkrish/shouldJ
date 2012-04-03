@@ -9,73 +9,10 @@ import static name.mlnkrishnan.shouldJ.ShouldJ.it;
 public class ExpressionAsserterTest {
 
     @Test
-    public void shouldReturn_Pass() {
-        it(new E<Integer>() {
-            @Override
-            public Integer perform() {
-                return 5;
-            }
-        }).shouldReturn(5);
-
-        it(new E<Void>() {
-            @Override
-            public Void perform() {
-                int k = 1;
-                return null;
-            }
-        }).shouldReturn(null);
-    }
-
-    @Test
-    public void shouldReturn_Fail() {
-        try {
-            it(new E<Integer>() {
-                @Override
-                public Integer perform() {
-                    return 5;
-                }
-            }).shouldReturn(4);
-            fail();
-        } catch (Throwable e) {
-            assertEquals(String.format("expected return value to be <%s>, but was <%s>", 4, 5), e.getMessage());
-        }
-    }
-
-    @Test
-    public void shouldReturn_Fail_OnNull_1() {
-        try {
-            it(new E<Integer>() {
-                @Override
-                public Integer perform() {
-                    return null;
-                }
-            }).shouldReturn(4);
-            fail();
-        } catch (Throwable e) {
-            assertEquals(String.format("expected return value to be <%s>, but was <%s>", 4, null), e.getMessage());
-        }
-    }
-
-    @Test
-    public void shouldReturn_Fail_OnNull_2() {
-        try {
-            it(new E<Integer>() {
-                @Override
-                public Integer perform() {
-                    return 5;
-                }
-            }).shouldReturn(null);
-            fail();
-        } catch (Throwable e) {
-            assertEquals(String.format("expected return value to be <%s>, but was <%s>", null, 5), e.getMessage());
-        }
-    }
-
-    @Test
     public void shouldThrow_Pass() {
-        it(new E<Void>() {
+        it(new E() {
             @Override
-            public Void perform() {
+            public void perform() {
                 throw new NumberFormatException();
             }
         }).shouldThrow(NumberFormatException.class);
@@ -83,9 +20,9 @@ public class ExpressionAsserterTest {
 
     @Test
     public void shouldThrow_Message_Pass() {
-        it(new E<Void>() {
+        it(new E() {
             @Override
-            public Void perform() {
+            public void perform() {
                 throw new NumberFormatException("i cant count");
             }
         }).shouldThrow(NumberFormatException.class)
@@ -95,9 +32,9 @@ public class ExpressionAsserterTest {
     @Test
     public void shouldThrow_Message_Fail() {
         try {
-            it(new E<Void>() {
+            it(new E() {
                 @Override
-                public Void perform() {
+                public void perform() {
                     throw new NumberFormatException("i cant count");
                 }
             }).shouldThrow(NumberFormatException.class)
@@ -111,9 +48,9 @@ public class ExpressionAsserterTest {
     @Test
     public void shouldThrow_Fail_WrongException() {
         try {
-            it(new E<Void>() {
+            it(new E() {
                 @Override
-                public Void perform() {
+                public void perform() {
                     throw new NumberFormatException();
                 }
             }).shouldThrow(AbstractMethodError.class);
@@ -126,10 +63,10 @@ public class ExpressionAsserterTest {
     @Test
     public void shouldThrow_Fail_NoException() {
         try {
-            it(new E<Void>() {
+            it(new E() {
                 @Override
-                public Void perform() {
-                    return null;
+                public void perform() {
+                    //something
                 }
             }).shouldThrow(AbstractMethodError.class);
             fail();

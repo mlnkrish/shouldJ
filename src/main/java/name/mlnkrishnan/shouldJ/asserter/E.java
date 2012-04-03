@@ -1,5 +1,5 @@
 package name.mlnkrishnan.shouldJ.asserter;
 
-public abstract class E<R> {
-    public abstract R perform();
+public abstract class E {
+    public abstract void perform();
 }

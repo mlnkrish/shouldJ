@@ -1,5 +1,6 @@
 package name.mlnkrishnan.shouldJ.asserter;
 
+import name.mlnkrishnan.shouldJ.failure.ActualValueIsNull;
 import name.mlnkrishnan.shouldJ.failure.ExpectationMismatch;
 
 import java.util.Collection;
@@ -14,6 +15,8 @@ public class CollectionAsserter<T> extends ObjectAsserter<Collection<T>> {
     }
 
     public PositionalAsserter<T> shouldHave(T expected) {
+        if(actual == null)
+            throw new ActualValueIsNull();
         Iterator<T> iterator = actual.iterator();
         long pos = 0;
         while (iterator.hasNext()) {
@@ -26,6 +29,8 @@ public class CollectionAsserter<T> extends ObjectAsserter<Collection<T>> {
     }
 
     public PositionalAsserter<T> shouldHave(P<T> predicate) {
+        if(actual == null)
+            throw new ActualValueIsNull();
         Iterator<T> iterator = actual.iterator();
         long pos = 0;
         while (iterator.hasNext()) {
@@ -38,6 +43,8 @@ public class CollectionAsserter<T> extends ObjectAsserter<Collection<T>> {
     }
 
     public CollectionAsserter<T> shouldNotHave(T notExpected) {
+        if(actual == null)
+            throw new ActualValueIsNull();
         Iterator<T> iterator = actual.iterator();
         long pos = 0;
         while (iterator.hasNext()) {
@@ -50,6 +57,8 @@ public class CollectionAsserter<T> extends ObjectAsserter<Collection<T>> {
     }
 
     public CollectionAsserter<T> shouldNotHave(P<T> predicate) {
+        if(actual == null)
+            throw new ActualValueIsNull();
         Iterator<T> iterator = actual.iterator();
         long pos = 0;
         while (iterator.hasNext()) {
@@ -62,6 +71,8 @@ public class CollectionAsserter<T> extends ObjectAsserter<Collection<T>> {
     }
 
     public CollectionAsserter<T> shouldBeOfSize(long expectedSize){
+        if(actual == null)
+            throw new ActualValueIsNull();
         int actualSize = actual.size();
         if(expectedSize != actualSize)
             throw new ExpectationMismatch(String.format("expected collection to be of size <%d>, but was of size <%d>", expectedSize, actualSize));
@@ -69,6 +80,8 @@ public class CollectionAsserter<T> extends ObjectAsserter<Collection<T>> {
     }
 
     public CollectionAsserter<T> shouldBeEmpty(){
+        if(actual == null)
+            throw new ActualValueIsNull();
         int actualSize = actual.size();
         if(actualSize != 0)
             throw new ExpectationMismatch(String.format("expected collection to be empty, but was of size <%d>", actualSize));
@@ -76,6 +89,8 @@ public class CollectionAsserter<T> extends ObjectAsserter<Collection<T>> {
     }
 
     public CollectionAsserter<T> shouldNotBeEmpty(){
+        if(actual == null)
+            throw new ActualValueIsNull();
         int actualSize = actual.size();
         if(actualSize == 0)
             throw new ExpectationMismatch(String.format("expected non empty collection, but was empty"));
@@ -83,7 +98,7 @@ public class CollectionAsserter<T> extends ObjectAsserter<Collection<T>> {
     }
     
 
-    protected class PositionalAsserter<T> extends CollectionAsserter<T> {
+    public class PositionalAsserter<T> extends CollectionAsserter<T> {
         final private long actualPosition;
         final private T item;
 
