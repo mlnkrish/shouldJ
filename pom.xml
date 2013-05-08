@@ -37,7 +37,7 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.4.1</version>
                 <configuration>
-                    <releaseLabel>release</releaseLabel>
+                    <releaseLabel>release-${releaseVersion}</releaseLabel>
                 </configuration>
             </plugin>
         </plugins>
