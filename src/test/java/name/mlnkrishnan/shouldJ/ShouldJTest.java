@@ -47,6 +47,11 @@ public class ShouldJTest {
     }
 
     @Test
+    public void shouldReturnArrayAsserter() {
+        assertEquals(ArrayAsserter.class, it(new String[]{"foo"}).getClass());
+    }
+
+    @Test
     public void shouldReturnTypeAsserter() {
         assertEquals(TypeAsserter.class, it(Integer.class).getClass());
     }

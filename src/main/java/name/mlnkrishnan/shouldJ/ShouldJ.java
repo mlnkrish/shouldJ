@@ -11,6 +11,10 @@ public class ShouldJ {
         return new ObjectAsserter<T>(actualObj);
     }
 
+    public static <T> ArrayAsserter<T> it(T[] actualObj) {
+        return new ArrayAsserter<T>(actualObj);
+    }
+
     public static <T> CollectionAsserter<T> it(Collection<T> actualCollection) {
         return new CollectionAsserter<T>(actualCollection);
     }
