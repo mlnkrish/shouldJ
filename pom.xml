@@ -18,6 +18,7 @@
 
     <scm>
         <url>https://github.com/mlnkrish/shouldJ</url>
+        <connection>scm:git:https://github.com/mlnkrish/shouldJ.git</connection>
         <developerConnection>scm:git:https://github.com/mlnkrish/shouldJ.git</developerConnection>
     </scm>
 
