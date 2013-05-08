@@ -18,6 +18,7 @@
 
     <scm>
         <url>https://github.com/mlnkrish/shouldJ</url>
+        <developerConnection>scm:git:https://github.com/mlnkrish/shouldJ.git</developerConnection>
     </scm>
 
     <dependencies>
@@ -28,4 +29,14 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.4.1</version>
+            </plugin>
+        </plugins>
+    </build>
 </project>
