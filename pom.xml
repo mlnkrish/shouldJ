@@ -4,7 +4,7 @@
 
     <groupId>name.mlnkrishnan.shouldJ</groupId>
     <artifactId>shouldJ</artifactId>
-    <version>1.5</version>
+    <version>1.6-SNAPSHOT</version>
 
     <licenses>
         <license>
@@ -18,7 +18,7 @@
         <url>https://github.com/mlnkrish/shouldJ</url>
         <connection>scm:git:https://github.com/mlnkrish/shouldJ.git</connection>
         <developerConnection>scm:git:https://github.com/mlnkrish/shouldJ.git</developerConnection>
-        <tag>release-${releaseVersion}</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <dependencies>
