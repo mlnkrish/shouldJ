@@ -43,11 +43,11 @@
     <distributionManagement>
         <repository>
             <id>repo</id>
-            <url>https://github.com/mlnkrish/mvn-repo/raw/master/releases</url>
+            <url>file:../mvn-repo/releases</url>
         </repository>
         <snapshotRepository>
             <id>snapshot-repo</id>
-            <url>https://github.com/mlnkrish/mvn-repo/raw/master/snapshots</url>
+            <url>file:../mvn-repo/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 
