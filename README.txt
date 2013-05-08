@@ -12,7 +12,7 @@ Add the following to your pom.xml
     <dependency>
         <groupId>name.mlnkrishnan.shouldJ</groupId>
         <artifactId>shouldJ</artifactId>
-        <version>1.0</version>
+        <version>1.2</version>
         <scope>test</scope>
     </dependency>
 </dependencies>
