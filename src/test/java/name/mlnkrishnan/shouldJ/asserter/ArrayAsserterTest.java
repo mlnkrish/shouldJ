@@ -73,4 +73,20 @@ public class ArrayAsserterTest {
         expectedException.expectMessage("found unwanted item <obj1> in the array, at position <0>");
         it(array).shouldNotHave("obj1");
     }
+
+    @Test
+    public void shouldHaveAt_Pass() {
+        String[] array = {"obj1", "obj2"};
+
+        it(array).shouldHave("obj1").at(0);
+    }
+
+    @Test
+    public void shouldHaveAt_Fail() {
+        String[] array = {"obj1", "obj2"};
+
+        expectedException.expect(ExpectationMismatch.class);
+        expectedException.expectMessage("expected <obj1> at position <1> but was at <0>");
+        it(array).shouldHave("obj1").at(1);
+    }
 }

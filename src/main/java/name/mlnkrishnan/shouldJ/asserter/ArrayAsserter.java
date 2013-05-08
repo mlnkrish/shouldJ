@@ -23,12 +23,11 @@ public class ArrayAsserter<T> extends ObjectAsserter<Object> {
         return this;
     }
 
-    public ArrayAsserter<T> shouldHave(T obj) {
+    public CollectionAsserter<T>.PositionalAsserter<T> shouldHave(T obj) {
         assertNotNull();
 
         List<T> actualAsList = Arrays.asList(actual);
-        new CollectionAsserter<T>(actualAsList, "array").shouldHave(obj);
-        return this;
+        return new CollectionAsserter<T>(actualAsList, "array").shouldHave(obj);
     }
 
     public ArrayAsserter<T> shouldNotHave(T obj) {
