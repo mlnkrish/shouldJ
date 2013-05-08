@@ -43,11 +43,11 @@
     <distributionManagement>
         <repository>
             <id>repo</id>
-            <url>file:../mvn-repo/releases</url>
+            <url>file:../../mvn-repo/releases</url>
         </repository>
         <snapshotRepository>
             <id>snapshot-repo</id>
-            <url>file:../mvn-repo/snapshots</url>
+            <url>file:../../mvn-repo/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 
