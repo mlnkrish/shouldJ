@@ -3,6 +3,7 @@ package name.mlnkrishnan.shouldJ.asserter;
 import name.mlnkrishnan.shouldJ.failure.ActualValueIsNull;
 import name.mlnkrishnan.shouldJ.failure.ExpectationMismatch;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -104,6 +105,25 @@ public class CollectionAsserter<T> extends ObjectAsserter<Collection<T>> {
         int actualSize = actual.size();
         if (actualSize == 0)
             throw new ExpectationMismatch(String.format("expected non empty %s, but was empty", type));
+        return this;
+    }
+
+    public CollectionAsserter<T> shouldHaveAll(T... all) {
+        if (actual == null)
+            throw new ActualValueIsNull();
+
+        Collection<T> missing = new ArrayList<T>();
+
+        for (T t : all) {
+            try {
+                shouldHave(t);
+            } catch (ExpectationMismatch e) {
+                missing.add(t);
+            }
+        }
+
+        if(missing.size() > 0)
+            throw new ExpectationMismatch(String.format("did not find expected item(s) %s in the collection", missing));
         return this;
     }
 

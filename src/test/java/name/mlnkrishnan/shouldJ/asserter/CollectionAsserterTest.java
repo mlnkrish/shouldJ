@@ -1,6 +1,9 @@
 package name.mlnkrishnan.shouldJ.asserter;
 
+import name.mlnkrishnan.shouldJ.failure.ExpectationMismatch;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +14,9 @@ import static name.mlnkrishnan.shouldJ.ShouldJ.it;
 import static org.junit.Assert.fail;
 
 public class CollectionAsserterTest {
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void shouldHave_Pass() {
@@ -205,6 +211,22 @@ public class CollectionAsserterTest {
         } catch (Error e) {
             assertEquals("expected <1> at position <2> but was at <0>", e.getMessage());
         }
+    }
+
+    @Test
+    public void shouldHaveAll_Pass() {
+        List<Integer> integers = Arrays.asList(1, 2, 3);
+
+        it(integers).shouldHaveAll(2, 3);
+    }
+
+    @Test
+    public void shouldHaveAll_Fail() {
+        List<Integer> integers = Arrays.asList(1, 2, 3);
+
+        expectedException.expectMessage("did not find expected item(s) [5, 4] in the collection");
+        expectedException.expect(ExpectationMismatch.class);
+        it(integers).shouldHaveAll(2, 5, 4);
     }
 
     class DummyType {

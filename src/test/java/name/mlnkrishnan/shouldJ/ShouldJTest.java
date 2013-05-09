@@ -49,6 +49,7 @@ public class ShouldJTest {
     @Test
     public void shouldReturnArrayAsserter() {
         assertEquals(ArrayAsserter.class, it(new String[]{"foo"}).getClass());
+        assertEquals(ArrayAsserter.class, it(new Float[]{1.1f}).getClass());
     }
 
     @Test

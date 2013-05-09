@@ -19,7 +19,7 @@ public class ShouldJ {
         return new CollectionAsserter<T>(actualCollection);
     }
 
-    public static  BooleanAsserter it(Boolean actualBoolean) {
+    public static BooleanAsserter it(Boolean actualBoolean) {
         return new BooleanAsserter(actualBoolean);
     }
 
@@ -31,7 +31,7 @@ public class ShouldJ {
         return new StringAsserter(actualString);
     }
 
-    public static <K,V> MapAsserter<K,V> it(Map<K,V> actualMap) {
+    public static <K, V> MapAsserter<K, V> it(Map<K, V> actualMap) {
         return new MapAsserter<K, V>(actualMap);
     }
 
