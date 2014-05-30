@@ -19,7 +19,7 @@ public class MapAsserter<K, V> extends ObjectAsserter<Map<K, V>> {
         if (!actual.containsKey(expectedKey))
             throw new ExpectationMismatch(String.format("expected map to contain key <%s>, but was not present", expectedKey));
 
-        return new MapValueAsserter<K, V>(expectedKey, actual);
+        return new MapValueAsserter<>(expectedKey, actual);
     }
 
     public class MapValueAsserter<K, V> extends MapAsserter<K,V>{
@@ -34,7 +34,7 @@ public class MapAsserter<K, V> extends ObjectAsserter<Map<K, V>> {
             V actualValue = actual.get(key);
             if(!actualValue.equals(expectedValue))
                 throw new ExpectationMismatch(String.format("expected key <%s> to have value <%s>, but the value was <%s>", key, expectedValue, actualValue));
-            return new MapAsserter<K, V>(actual);
+            return new MapAsserter<>(actual);
         }
     }
 }

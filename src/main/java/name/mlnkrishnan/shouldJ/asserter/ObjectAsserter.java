@@ -37,7 +37,7 @@ public class ObjectAsserter<T> {
     public ObjectAsserter<T> shouldBeOfType(Class<?> expectedType){
         if(actual == null)
             throw new ActualValueIsNull();
-        Class<? extends Object> actualType = actual.getClass();
+        Class<?> actualType = actual.getClass();
         if(!actualType.equals(expectedType))
             throw new ExpectationMismatch(String.format("expected type <%s>, but was <%s>", expectedType, actualType));
         return this;

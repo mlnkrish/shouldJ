@@ -6,6 +6,7 @@ import name.mlnkrishnan.shouldJ.failure.ExpectationMismatch;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.function.Predicate;
 
 public class CollectionAsserter<T> extends ObjectAsserter<Collection<T>> {
     final protected Collection<T> actual;
@@ -33,21 +34,21 @@ public class CollectionAsserter<T> extends ObjectAsserter<Collection<T>> {
         while (iterator.hasNext()) {
             T obj = iterator.next();
             if (obj.equals(expected))
-                return new PositionalAsserter<T>(pos, obj, actual);
+                return new PositionalAsserter<>(pos, obj, actual);
             pos++;
         }
         throw new ExpectationMismatch(String.format("did not find expected item <%s> in the %s", expected, type));
     }
 
-    public PositionalAsserter<T> shouldHave(P<T> predicate) {
+    public PositionalAsserter<T> shouldHave(Predicate<T> predicate) {
         if (actual == null)
             throw new ActualValueIsNull();
         Iterator<T> iterator = actual.iterator();
         long pos = 0;
         while (iterator.hasNext()) {
             T obj = iterator.next();
-            if (predicate.is(obj))
-                return new PositionalAsserter<T>(pos, obj, actual);
+            if (predicate.test(obj))
+                return new PositionalAsserter<>(pos, obj, actual);
             pos++;
         }
         throw new ExpectationMismatch(String.format("did not find expected item in the %s", type));
@@ -67,14 +68,14 @@ public class CollectionAsserter<T> extends ObjectAsserter<Collection<T>> {
         return this;
     }
 
-    public CollectionAsserter<T> shouldNotHave(P<T> predicate) {
+    public CollectionAsserter<T> shouldNotHave(Predicate<T> predicate) {
         if (actual == null)
             throw new ActualValueIsNull();
         Iterator<T> iterator = actual.iterator();
         long pos = 0;
         while (iterator.hasNext()) {
             T obj = iterator.next();
-            if (predicate.is(obj))
+            if (predicate.test(obj))
                 throw new ExpectationMismatch(String.format("found unwanted item <%s> in the %s, at position <%d>", obj, type, pos));
             pos++;
         }
@@ -112,7 +113,7 @@ public class CollectionAsserter<T> extends ObjectAsserter<Collection<T>> {
         if (actual == null)
             throw new ActualValueIsNull();
 
-        Collection<T> missing = new ArrayList<T>();
+        Collection<T> missing = new ArrayList<>();
 
         for (T t : all) {
             try {
@@ -142,7 +143,7 @@ public class CollectionAsserter<T> extends ObjectAsserter<Collection<T>> {
             if (actualPosition != expectedPosition) {
                 throw new ExpectationMismatch(String.format("expected <%s> at position <%d> but was at <%d>", item, expectedPosition, actualPosition));
             }
-            return new CollectionAsserter<T>(actual);
+            return new CollectionAsserter<>(actual);
         }
     }
 }

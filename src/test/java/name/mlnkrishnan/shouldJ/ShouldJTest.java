@@ -25,7 +25,7 @@ public class ShouldJTest {
 
     @Test
     public void shouldReturnCollectionAsserter() {
-        assertEquals(CollectionAsserter.class, it(new ArrayList<Object>()).getClass());
+        assertEquals(CollectionAsserter.class, it(new ArrayList<>()).getClass());
     }
 
     @Test
@@ -38,7 +38,7 @@ public class ShouldJTest {
 
     @Test
     public void shouldReturnMapAsserter() {
-        assertEquals(MapAsserter.class, it(new TreeMap<String,Object>()).getClass());
+        assertEquals(MapAsserter.class, it(new TreeMap<>()).getClass());
     }
 
     @Test

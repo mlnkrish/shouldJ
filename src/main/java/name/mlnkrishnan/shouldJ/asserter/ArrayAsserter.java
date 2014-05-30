@@ -27,14 +27,14 @@ public class ArrayAsserter<T> extends ObjectAsserter<Object> {
         assertNotNull();
 
         List<T> actualAsList = Arrays.asList(actual);
-        return new CollectionAsserter<T>(actualAsList, "array").shouldHave(obj);
+        return new CollectionAsserter<>(actualAsList, "array").shouldHave(obj);
     }
 
     public ArrayAsserter<T> shouldNotHave(T obj) {
         assertNotNull();
 
         List<T> actualAsList = Arrays.asList(actual);
-        new CollectionAsserter<T>(actualAsList, "array").shouldNotHave(obj);
+        new CollectionAsserter<>(actualAsList, "array").shouldNotHave(obj);
         return this;
     }
 

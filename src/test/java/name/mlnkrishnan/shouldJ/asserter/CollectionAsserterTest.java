@@ -42,18 +42,8 @@ public class CollectionAsserterTest {
         List<DummyType> dummyTypes = Arrays.asList(new DummyType(1, 'a'), new DummyType(2, 'b'));
 
         it(dummyTypes)
-                .shouldHave(new P<DummyType>() {
-                    @Override
-                    public boolean is(DummyType obj) {
-                        return obj.aNum == 1;
-                    }
-                })
-                .shouldHave(new P<DummyType>() {
-                    @Override
-                    public boolean is(DummyType obj) {
-                        return obj.aChar == 'b';
-                    }
-                });
+                .shouldHave((obj) -> obj.aNum == 1)
+                .shouldHave((obj) -> obj.aChar == 'b');
     }
 
     @Test
@@ -61,12 +51,7 @@ public class CollectionAsserterTest {
         List<DummyType> dummyTypes = Arrays.asList(new DummyType(1, 'a'), new DummyType(2, 'b'));
         try {
             it(dummyTypes)
-                    .shouldHave(new P<DummyType>() {
-                        @Override
-                        public boolean is(DummyType obj) {
-                            return obj.aNum == 3;
-                        }
-                    });
+                    .shouldHave((obj) -> obj.aNum == 3);
             fail();
         } catch (Throwable e) {
             assertEquals("did not find expected item in the collection", e.getMessage());
@@ -97,18 +82,8 @@ public class CollectionAsserterTest {
         List<DummyType> dummyTypes = Arrays.asList(new DummyType(1, 'a'), new DummyType(2, 'b'));
 
         it(dummyTypes)
-                .shouldNotHave(new P<DummyType>() {
-                    @Override
-                    public boolean is(DummyType obj) {
-                        return obj.aNum == 3;
-                    }
-                })
-                .shouldNotHave(new P<DummyType>() {
-                    @Override
-                    public boolean is(DummyType obj) {
-                        return obj.aChar == 'K';
-                    }
-                });
+                .shouldNotHave((obj) -> obj.aNum == 3)
+                .shouldNotHave((obj) -> obj.aChar == 'K');
     }
 
     @Test
@@ -117,18 +92,8 @@ public class CollectionAsserterTest {
         List<DummyType> dummyTypes = Arrays.asList(unwanted, new DummyType(2, 'b'));
         try {
             it(dummyTypes)
-                    .shouldNotHave(new P<DummyType>() {
-                        @Override
-                        public boolean is(DummyType obj) {
-                            return obj.aNum == 3;
-                        }
-                    })
-                    .shouldNotHave(new P<DummyType>() {
-                        @Override
-                        public boolean is(DummyType obj) {
-                            return obj.aNum == 1;
-                        }
-                    });
+                    .shouldNotHave((obj) -> obj.aNum == 3)
+                    .shouldNotHave((obj) -> obj.aNum == 1);
             fail();
         } catch (Throwable e) {
             assertEquals(String.format("found unwanted item <%s> in the collection, at position <%d>", unwanted, 0), e.getMessage());
@@ -155,7 +120,7 @@ public class CollectionAsserterTest {
 
     @Test
     public void shouldBeEmpty_Pass() {
-        List<Integer> integers = new ArrayList<Integer>();
+        List<Integer> integers = new ArrayList<>();
 
         it(integers).shouldBeEmpty();
     }
@@ -180,7 +145,7 @@ public class CollectionAsserterTest {
 
     @Test
     public void shouldNotBeEmpty_Fail() {
-        List<Integer> integers = new ArrayList<Integer>();
+        List<Integer> integers = new ArrayList<>();
         try {
             it(integers).shouldNotBeEmpty();
             fail();

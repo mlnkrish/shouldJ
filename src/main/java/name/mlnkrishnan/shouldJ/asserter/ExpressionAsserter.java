@@ -18,7 +18,7 @@ public class ExpressionAsserter {
         } catch (Throwable e) {
             Class<? extends Throwable> actualThrowableClass = e.getClass();
             if (actualThrowableClass.equals(expectedThrowable)) {
-                return new ThrownExceptionAsserter<T>(e);
+                return new ThrownExceptionAsserter<>(e);
             }
             throw new ExpectationMismatch(String.format("expected throwable of type <%s>, but got <%s>", expectedThrowable, actualThrowableClass));
         }
@@ -29,7 +29,7 @@ public class ExpressionAsserter {
         private final ThrowableAsserter<Throwable> throwableThrowableAsserter;
 
         public ThrownExceptionAsserter(Throwable e) {
-            throwableThrowableAsserter = new ThrowableAsserter<Throwable>(e);
+            throwableThrowableAsserter = new ThrowableAsserter<>(e);
         }
 
         public ThrownExceptionAsserter<T> withMessage(String expectedMessage) {
