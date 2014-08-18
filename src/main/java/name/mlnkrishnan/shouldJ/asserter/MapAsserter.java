@@ -22,6 +22,15 @@ public class MapAsserter<K, V> extends ObjectAsserter<Map<K, V>> {
         return new MapValueAsserter<K, V>(expectedKey, actual);
     }
 
+    public MapAsserter<K, V> shouldNotHaveKey(K notExpectedKey) {
+        if(actual == null)
+            throw new ActualValueIsNull();
+        if(actual.containsKey(notExpectedKey))
+            throw new ExpectationMismatch(String.format("found unwanted key <%s> in map", notExpectedKey));
+
+        return new MapAsserter<K, V>(actual);
+    }
+
     public class MapValueAsserter<K, V> extends MapAsserter<K,V>{
         final private K key;
 

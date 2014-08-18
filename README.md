@@ -80,7 +80,8 @@ Map<String, Object> stringObjectMap = new HashMap<String, Object>() {{
 
 it(stringObjectMap)
         .shouldHaveKey("key1").withValue(value1)
-        .shouldHaveKey("key2").withValue(value2);
+        .shouldHaveKey("key2").withValue(value2)
+        .shouldNotHaveKey("unwantedKey");
 ```
 
 ## Exceptions
