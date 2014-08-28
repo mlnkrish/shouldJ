@@ -69,4 +69,31 @@ public class MapAsserterTest {
             assertEquals(String.format("expected key <%s> to have value <%s>, but the value was <%s>", "key2", notInMap, value2), e.getMessage());
         }
     }
+
+    @Test
+    public void shouldNotHaveKey_Pass() {
+        Map<String, Object> stringObjectMap = new HashMap<String, Object>();
+        stringObjectMap.put("key1", new Object());
+
+        it(stringObjectMap)
+                .shouldHaveKey("key1")
+                .shouldNotHaveKey("nonExistantKey1")
+                .shouldNotHaveKey("nonExistantKey2");
+    }
+
+    @Test
+    public void shouldNotHaveKey_Fail() {
+        Map<String, Object> stringObjectMap = new HashMap<String, Object>();
+        stringObjectMap.put("key1", new Object());
+        stringObjectMap.put("key2", new Object());
+
+        try {
+            it(stringObjectMap)
+                    .shouldHaveKey("key1")
+                    .shouldNotHaveKey("key2");
+            fail();
+        } catch (Throwable e) {
+            assertEquals(String.format("found unwanted key <%s> in map", "key2"), e.getMessage());
+        }
+    }
 }
