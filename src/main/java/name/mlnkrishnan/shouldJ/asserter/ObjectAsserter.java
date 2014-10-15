@@ -2,6 +2,7 @@ package name.mlnkrishnan.shouldJ.asserter;
 
 import name.mlnkrishnan.shouldJ.failure.ActualValueIsNull;
 import name.mlnkrishnan.shouldJ.failure.ExpectationMismatch;
+import org.hamcrest.Matcher;
 
 public class ObjectAsserter<T> {
     final protected T actual;
@@ -40,6 +41,14 @@ public class ObjectAsserter<T> {
         Class<? extends Object> actualType = actual.getClass();
         if(!actualType.equals(expectedType))
             throw new ExpectationMismatch(String.format("expected type <%s>, but was <%s>", expectedType, actualType));
+        return this;
+    }
+
+    public ObjectAsserter<T> shouldMatch(Matcher<T> matcher) {
+        boolean matches = matcher.matches(actual);
+        if (!matches) {
+            throw new ExpectationMismatch(matcher.toString() + ", but was <" + actual + ">");
+        }
         return this;
     }
 }

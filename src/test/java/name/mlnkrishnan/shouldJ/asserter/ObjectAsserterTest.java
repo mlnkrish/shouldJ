@@ -1,10 +1,12 @@
 package name.mlnkrishnan.shouldJ.asserter;
 
+import org.hamcrest.core.Is;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 import static name.mlnkrishnan.shouldJ.ShouldJ.it;
+import static org.hamcrest.Matchers.equalTo;
 
 public class ObjectAsserterTest {
 
@@ -84,6 +86,21 @@ public class ObjectAsserterTest {
             fail();
         } catch (Throwable e) {
             assertEquals(String.format("expected type <%s>, but was <%s>", DummyType.class, String.class), e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldMatchMatcher_Pass() {
+        it("123").shouldMatch(Is.is(equalTo("123")));
+    }
+
+    @Test
+    public void shouldMatchMatcher_Fail() {
+        try {
+            it("123").shouldMatch(Is.is(equalTo("456")));
+            fail();
+        } catch (Throwable e) {
+            assertEquals("is \"456\", but was <123>", e.getMessage());
         }
     }
 
