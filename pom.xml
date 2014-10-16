@@ -6,6 +6,10 @@
     <artifactId>shouldJ</artifactId>
     <version>1.8</version>
 
+    <properties>
+        <github.deploy.merge>true</github.deploy.merge>
+    </properties>
+
     <licenses>
         <license>
             <name>Eclipse Public License, Version 1.0 (EPL-1.0)</name>
@@ -66,10 +70,9 @@
                     <includes><include>**/*</include></includes>
                     <repositoryName>${project.artifactId}</repositoryName>                          <!-- github repo name -->
                     <repositoryOwner>mlnkrish</repositoryOwner>                               <!-- github username  -->
-                    <merge>true</merge>
+                    <merge>${github.deploy.merge}</merge>
                 </configuration>
                 <executions>
-                    <!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
                     <execution>
                         <goals>
                             <goal>site</goal>
@@ -77,6 +80,9 @@
                         <phase>deploy</phase>
                     </execution>
                 </executions>
+                <!-- Run this command to push it to github, make sure all the local changes are commited
+                    mvn deploy -Dgithub.global.userName=<github-login-id> -Dgithub.global.password=<github-password>
+                -->
             </plugin>
         </plugins>
     </build>
