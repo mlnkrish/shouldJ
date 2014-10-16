@@ -4,7 +4,7 @@
 
     <groupId>name.mlnkrishnan.shouldJ</groupId>
     <artifactId>shouldJ</artifactId>
-    <version>1.8-SNAPSHOT</version>
+    <version>1.8</version>
 
     <licenses>
         <license>
@@ -57,7 +57,7 @@
             <plugin>
                 <groupId>com.github.github</groupId>
                 <artifactId>site-maven-plugin</artifactId>
-                <version>0.8</version>
+                <version>0.10</version>
                 <configuration>
                     <message>Maven artifacts for ${project.version}</message>                       <!-- git commit message -->
                     <noJekyll>true</noJekyll>                                                       <!-- disable webpage processing -->

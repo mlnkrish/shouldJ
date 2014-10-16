@@ -9,8 +9,8 @@ Add the following to your pom.xml
 ```xml
 <repositories>
     <repository>
-        <id>mln-releases</id>
-        <url>https://github.com/mlnkrish/mvn-repo/raw/master/releases</url>
+        <id>shouldj-releases</id>
+        <url>https://raw.github.com/mlnkrish/shouldJ/mvn-repo</url>
     </repository>
 </repositories>
 
