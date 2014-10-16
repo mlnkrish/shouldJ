@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>name.mlnkrishnan.shouldJ</groupId>
+  <artifactId>shouldJ</artifactId>
+  <versioning>
+    <versions>
+      <version>1.8-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20141016042518</lastUpdated>
+  </versioning>
+</metadata>
