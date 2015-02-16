@@ -127,6 +127,25 @@ public class CollectionAsserter<T> extends ObjectAsserter<Collection<T>> {
         return this;
     }
 
+    public CollectionAsserter<T> shouldNotHaveAny(T... all) {
+        if (actual == null)
+            throw new ActualValueIsNull();
+
+        Collection<T> found = new ArrayList<T>();
+
+        for (T t : all) {
+            try {
+                shouldNotHave(t);
+            } catch (ExpectationMismatch e) {
+                found.add(t);
+            }
+        }
+
+        if(found.size() > 0)
+            throw new ExpectationMismatch(String.format("found unwanted item(s) %s in the collection", found));
+        return this;
+    }
+
 
     public class PositionalAsserter<T> extends CollectionAsserter<T> {
         final private long actualPosition;
