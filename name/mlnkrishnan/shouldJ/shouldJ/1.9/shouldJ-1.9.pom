@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>name.mlnkrishnan.shouldJ</groupId>
+    <artifactId>shouldJ</artifactId>
+    <version>1.9</version>
+
+    <properties>
+        <github.deploy.merge>true</github.deploy.merge>
+    </properties>
+
+    <licenses>
+        <license>
+            <name>Eclipse Public License, Version 1.0 (EPL-1.0)</name>
+            <url>http://opensource.org/licenses/eclipse-1.0.txt</url>
+            <distribution>manual</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/mlnkrish/shouldJ</url>
+        <connection>scm:git:https://github.com/mlnkrish/shouldJ.git</connection>
+        <developerConnection>scm:git:https://github.com/mlnkrish/shouldJ.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.9</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <version>1.3</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.4.1</version>
+                <configuration>
+                    <tagNameFormat>release-@{project.version}</tagNameFormat>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.1</version>
+                <configuration>
+                    <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.10</version>
+                <configuration>
+                    <message>Maven artifacts for ${project.version}</message>                       <!-- git commit message -->
+                    <noJekyll>true</noJekyll>                                                       <!-- disable webpage processing -->
+                    <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>          <!-- matches distribution management repository url above -->
+                    <branch>refs/heads/mvn-repo</branch>                                            <!-- remote branch name -->
+                    <includes><include>**/*</include></includes>
+                    <repositoryName>${project.artifactId}</repositoryName>                          <!-- github repo name -->
+                    <repositoryOwner>mlnkrish</repositoryOwner>                               <!-- github username  -->
+                    <merge>${github.deploy.merge}</merge>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                    </execution>
+                </executions>
+                <!-- Run this command to push it to github, make sure all the local changes are commited
+                    mvn deploy -Dgithub.global.userName=<github-login-id> -Dgithub.global.password=<github-password>
+                -->
+            </plugin>
+        </plugins>
+    </build>
+
+    <distributionManagement>
+        <repository>
+            <id>internal.repo</id>
+            <name>Temporary Staging Repository</name>
+            <url>file://${project.build.directory}/mvn-repo</url>
+        </repository>
+    </distributionManagement>
+
+</project>
