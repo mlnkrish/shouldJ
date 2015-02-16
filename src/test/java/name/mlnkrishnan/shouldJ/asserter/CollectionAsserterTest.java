@@ -229,6 +229,23 @@ public class CollectionAsserterTest {
         it(integers).shouldHaveAll(2, 5, 4);
     }
 
+    @Test
+    public void shouldNotHaveAny_Pass() {
+        List<Integer> integers = Arrays.asList(1, 2, 3);
+
+        it(integers).shouldNotHaveAny(4, 5);
+    }
+
+    @Test
+    public void shouldNotHaveAny_Fail() {
+        List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5);
+
+        expectedException.expectMessage("found unwanted item(s) [5, 4] in the collection");
+        expectedException.expect(ExpectationMismatch.class);
+        it(integers).shouldNotHaveAny(5, 4, 6);
+    }
+
+
     class DummyType {
         public int aNum;
         public char aChar;
