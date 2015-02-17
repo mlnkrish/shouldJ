@@ -89,4 +89,22 @@ public class ArrayAsserterTest {
         expectedException.expectMessage("expected <obj1> at position <1> but was at <0>");
         it(array).shouldHave("obj1").at(1);
     }
+
+    @Test
+    public void shouldBe_Pass() {
+        String[] array = {"obj1", "obj2"};
+        String[] expected = {"obj1", "obj2"};
+
+        it(array).shouldBe(expected);
+    }
+
+    @Test
+    public void shouldBe_Fail() {
+        String[] array = {"obj1", "obj2"};
+        String[] expected = {"obj1", "obj2", "obj3"};
+
+        expectedException.expect(ExpectationMismatch.class);
+        expectedException.expectMessage("expected array <[obj1, obj2]> to be <[obj1, obj2, obj3]>");
+        it(array).shouldBe(expected);
+    }
 }
