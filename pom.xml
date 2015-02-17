@@ -4,7 +4,7 @@
 
     <groupId>name.mlnkrishnan.shouldJ</groupId>
     <artifactId>shouldJ</artifactId>
-    <version>1.8</version>
+    <version>1.9</version>
 
     <properties>
         <github.deploy.merge>true</github.deploy.merge>
