@@ -38,6 +38,15 @@ public class ArrayAsserter<T> extends ObjectAsserter<Object> {
         return this;
     }
 
+    public ArrayAsserter<T> shouldBe(T[] array) {
+        assertNotNull();
+
+        if (! Arrays.deepEquals(array, actual))
+            throw new ExpectationMismatch(String.format("expected array <%s> to be <%s>", Arrays.toString(actual), Arrays.toString(array)));
+
+        return this;
+    }
+
     private void assertNotNull() {
         if (actual == null)
             throw new ActualValueIsNull();
