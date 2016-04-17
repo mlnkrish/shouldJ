@@ -18,7 +18,7 @@ Add the following to your pom.xml
     <dependency>
         <groupId>name.mlnkrishnan.shouldJ</groupId>
         <artifactId>shouldJ</artifactId>
-        <version>1.6</version>
+        <version>2.0</version>
         <scope>test</scope>
     </dependency>
 </dependencies>
