@@ -5,6 +5,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.util.Arrays;
+
 import static name.mlnkrishnan.shouldJ.ShouldJ.it;
 
 public class ArrayAsserterTest {
@@ -70,7 +72,7 @@ public class ArrayAsserterTest {
         String[] array = {"obj1", "obj2"};
 
         expectedException.expect(ExpectationMismatch.class);
-        expectedException.expectMessage("found unwanted item <obj1> in the array, at position <0>");
+        expectedException.expectMessage("found unwanted item <obj1> in the array " + Arrays.toString(array) + ", at position <0>");
         it(array).shouldNotHave("obj1");
     }
 

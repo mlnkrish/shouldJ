@@ -33,7 +33,7 @@ public class CollectionAsserterTest {
             it(integers).shouldHave(4);
             fail();
         } catch (Throwable e) {
-            assertEquals("did not find expected item <4> in the collection", e.getMessage());
+            assertEquals("did not find expected item <4> in the collection " + integers.toString(), e.getMessage());
         }
     }
 
@@ -69,7 +69,7 @@ public class CollectionAsserterTest {
                     });
             fail();
         } catch (Throwable e) {
-            assertEquals("did not find expected item in the collection", e.getMessage());
+            assertEquals("did not find expected item in the collection " + dummyTypes.toString(), e.getMessage());
         }
     }
 
@@ -88,7 +88,7 @@ public class CollectionAsserterTest {
             it(integers).shouldNotHave(2);
             fail();
         } catch (Throwable e) {
-            assertEquals("found unwanted item <2> in the collection, at position <1>", e.getMessage());
+            assertEquals("found unwanted item <2> in the collection " + integers.toString() + ", at position <1>", e.getMessage());
         }
     }
 
@@ -131,7 +131,7 @@ public class CollectionAsserterTest {
                     });
             fail();
         } catch (Throwable e) {
-            assertEquals(String.format("found unwanted item <%s> in the collection, at position <%d>", unwanted, 0), e.getMessage());
+            assertEquals(String.format("found unwanted item <%s> in the collection " + dummyTypes.toString() + ", at position <%d>", unwanted, 0), e.getMessage());
         }
     }
 
@@ -149,7 +149,7 @@ public class CollectionAsserterTest {
             it(integers).shouldBeOfSize(4);
             fail();
         } catch (Throwable e) {
-            assertEquals("expected collection to be of size <4>, but was of size <3>", e.getMessage());
+            assertEquals("expected collection " + integers.toString() + " to be of size <4>, but was of size <3>", e.getMessage());
         }
     }
 
@@ -253,6 +253,14 @@ public class CollectionAsserterTest {
         public DummyType(int a, char b) {
             this.aNum = a;
             this.aChar = b;
+        }
+
+        @Override
+        public String toString() {
+            return "DummyType{" +
+                    "aNum=" + aNum +
+                    ", aChar=" + aChar +
+                    '}';
         }
     }
 }
