@@ -1,6 +1,7 @@
 package name.mlnkrishnan.shouldJ;
 
 import name.mlnkrishnan.shouldJ.asserter.*;
+import name.mlnkrishnan.shouldJ.primitive.BoxPrimitive;
 
 import java.util.Collection;
 import java.util.Map;
@@ -13,6 +14,10 @@ public class ShouldJ {
 
     public static <T> ArrayAsserter<T> it(T[] actualObj) {
         return new ArrayAsserter<T>(actualObj);
+    }
+
+    public static ArrayAsserter<Integer> it(int[] actualObj) {
+        return new ArrayAsserter<Integer>(BoxPrimitive.from(actualObj));
     }
 
     public static <T> CollectionAsserter<T> it(Collection<T> actualCollection) {

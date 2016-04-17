@@ -2,6 +2,7 @@ package name.mlnkrishnan.shouldJ.asserter;
 
 import name.mlnkrishnan.shouldJ.failure.ActualValueIsNull;
 import name.mlnkrishnan.shouldJ.failure.ExpectationMismatch;
+import name.mlnkrishnan.shouldJ.primitive.BoxPrimitive;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +13,11 @@ public class ArrayAsserter<T> extends ObjectAsserter<Object> {
     public ArrayAsserter(T[] array) {
         super(array);
         this.actual = array;
+    }
+
+    public ArrayAsserter<Integer> shouldBe(int[] expected) {
+        Integer[] from = BoxPrimitive.from(expected);
+        return new ArrayAsserter<Integer>((Integer[])actual).shouldBe(from);
     }
 
     public ArrayAsserter<T> shouldBeOfLength(int length) {
