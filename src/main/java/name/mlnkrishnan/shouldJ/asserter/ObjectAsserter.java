@@ -4,6 +4,8 @@ import name.mlnkrishnan.shouldJ.failure.ActualValueIsNull;
 import name.mlnkrishnan.shouldJ.failure.ExpectationMismatch;
 import org.hamcrest.Matcher;
 
+import java.lang.reflect.Array;
+
 public class ObjectAsserter<T> {
     final protected T actual;
 
@@ -12,6 +14,13 @@ public class ObjectAsserter<T> {
     }
 
     public ObjectAsserter<T> shouldBe(T expected) {
+
+        if (isArray(expected) && isArray(actual)) {
+            if (! lengthsEqual(expected) || ! elementsEqual(expected))
+                throw new ExpectationMismatch(String.format("expected array <%s> to be <%s>", toArrayString(actual), toArrayString(expected)));
+            return this;
+        }
+
         if(!actual.equals(expected))
            throw new ExpectationMismatch(String.format("expected <%s>, but got <%s>", expected, actual));
         return this;
@@ -50,5 +59,42 @@ public class ObjectAsserter<T> {
             throw new ExpectationMismatch(matcher.toString() + ", but was <" + actual + ">");
         }
         return this;
+    }
+
+    private boolean isArray(Object obj) {
+        return obj.getClass().isArray();
+    }
+
+    private boolean lengthsEqual(Object expected) {
+        return Array.getLength(expected) == Array.getLength(actual);
+    }
+
+    private boolean elementsEqual(Object expected) {
+        for(int i = 0; i < Array.getLength(expected); ++i) {
+            if (! Array.get(expected, i).equals(Array.get(actual, i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private String toArrayString(Object expected) {
+        String begin = "[";
+        String delimiter = ",";
+        String end = "]";
+
+        StringBuilder arrayString = new StringBuilder(begin);
+        boolean separate = false;
+        for(int i = 0; i < Array.getLength(expected); ++i) {
+            if (separate) {
+                arrayString.append(delimiter);
+            }
+            arrayString.append(Array.get(expected, i));
+            separate = true;
+        }
+
+        arrayString.append(end);
+
+        return arrayString.toString();
     }
 }
