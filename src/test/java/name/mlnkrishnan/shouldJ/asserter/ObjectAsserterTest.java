@@ -1,7 +1,10 @@
 package name.mlnkrishnan.shouldJ.asserter;
 
+import name.mlnkrishnan.shouldJ.failure.ExpectationMismatch;
 import org.hamcrest.core.Is;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
@@ -9,6 +12,9 @@ import static name.mlnkrishnan.shouldJ.ShouldJ.it;
 import static org.hamcrest.Matchers.equalTo;
 
 public class ObjectAsserterTest {
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void shouldBe_Pass() {
@@ -103,6 +109,26 @@ public class ObjectAsserterTest {
             assertEquals("is \"456\", but was <123>", e.getMessage());
         }
     }
+
+
+    @Test
+    public void shouldBe_Pass_For_Primitive_Arrays() {
+        int[] array = {10, 15};
+        int[] expected = {10, 15};
+
+        it(array).shouldBe(expected);
+    }
+
+    @Test
+    public void shouldBe_Fail_For_Primitive_Arrays() {
+        int[] array = {10, 15};
+        int[] expected = {10, 15, 20};
+
+        expectedException.expect(ExpectationMismatch.class);
+        expectedException.expectMessage("expected array <[10,15]> to be <[10,15,20]>");
+        it(array).shouldBe(expected);
+    }
+
 
     class DummyType {
     }
