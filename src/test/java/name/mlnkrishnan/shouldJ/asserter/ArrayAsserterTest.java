@@ -107,20 +107,4 @@ public class ArrayAsserterTest {
         expectedException.expectMessage("expected array <[obj1, obj2]> to be <[obj1, obj2, obj3]>");
         it(array).shouldBe(expected);
     }
-
-    @Test
-    public void shouldBe_PrimitiveArray_Pass() {
-        int[] coords = new int[]{10, 15};
-        it(coords).shouldBe(new int[]{10, 15});
-    }
-
-    @Test
-    public void shouldBe_PrimitiveArray_Fail() {
-        int[] array = new int[]{10, 15};
-        int[] expected = new int[]{10, 12};
-
-        expectedException.expect(ExpectationMismatch.class);
-        expectedException.expectMessage("expected array <[10, 15]> to be <[10, 12]>");
-        it(array).shouldBe(expected);
-    }
 }
