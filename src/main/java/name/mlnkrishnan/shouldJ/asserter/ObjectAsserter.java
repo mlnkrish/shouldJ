@@ -14,20 +14,22 @@ public class ObjectAsserter<T> {
     }
 
     public ObjectAsserter<T> shouldBe(T expected) {
+        if (actual == null)
+            throw new ActualValueIsNull();
 
         if (isArray(expected) && isArray(actual)) {
-            if (! lengthsEqual(expected) || ! elementsEqual(expected))
+            if (!lengthsEqual(expected) || !elementsEqual(expected))
                 throw new ExpectationMismatch(String.format("expected array <%s> to be <%s>", toArrayString(actual), toArrayString(expected)));
             return this;
         }
 
-        if(!actual.equals(expected))
-           throw new ExpectationMismatch(String.format("expected <%s>, but got <%s>", expected, actual));
+        if (!actual.equals(expected))
+            throw new ExpectationMismatch(String.format("expected <%s>, but got <%s>", expected, actual));
         return this;
     }
 
     public ObjectAsserter<T> shouldNotBe(T notExpected) {
-        if(actual.equals(notExpected))
+        if (actual.equals(notExpected))
             throw new ExpectationMismatch(String.format("expected not same"));
         return this;
     }
@@ -43,12 +45,12 @@ public class ObjectAsserter<T> {
             throw new ExpectationMismatch("expected not null");
         return this;
     }
-    
-    public ObjectAsserter<T> shouldBeOfType(Class<?> expectedType){
-        if(actual == null)
+
+    public ObjectAsserter<T> shouldBeOfType(Class<?> expectedType) {
+        if (actual == null)
             throw new ActualValueIsNull();
         Class<? extends Object> actualType = actual.getClass();
-        if(!actualType.equals(expectedType))
+        if (!actualType.equals(expectedType))
             throw new ExpectationMismatch(String.format("expected type <%s>, but was <%s>", expectedType, actualType));
         return this;
     }
@@ -62,6 +64,9 @@ public class ObjectAsserter<T> {
     }
 
     private boolean isArray(Object obj) {
+        if (obj == null) {
+            return false;
+        }
         return obj.getClass().isArray();
     }
 
@@ -70,8 +75,8 @@ public class ObjectAsserter<T> {
     }
 
     private boolean elementsEqual(Object expected) {
-        for(int i = 0; i < Array.getLength(expected); ++i) {
-            if (! Array.get(expected, i).equals(Array.get(actual, i))) {
+        for (int i = 0; i < Array.getLength(expected); ++i) {
+            if (!Array.get(expected, i).equals(Array.get(actual, i))) {
                 return false;
             }
         }
@@ -85,7 +90,7 @@ public class ObjectAsserter<T> {
 
         StringBuilder arrayString = new StringBuilder(begin);
         boolean separate = false;
-        for(int i = 0; i < Array.getLength(expected); ++i) {
+        for (int i = 0; i < Array.getLength(expected); ++i) {
             if (separate) {
                 arrayString.append(delimiter);
             }
